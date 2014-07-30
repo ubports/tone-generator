@@ -1,0 +1,20 @@
+#!/bin/bash
+if [ -z "$1" ]
+  then
+    echo "Usage: $0 <key> [duration]"
+    echo "Valid keys: 0..9, 10 (*), 11 (#)"
+    echo "Default duration: 3 seconds"
+    exit 1
+fi
+
+TONE=$1
+DURATION=3
+if [ "$2" ]
+  then
+    DURATION=$2
+fi
+
+echo "Playing DTMF tone $TONE for $DURATION seconds."
+dbus-send --session --type=method_call --dest=com.Nokia.Telephony.Tones /com/Nokia/Telephony/Tones com.Nokia.Telephony.Tones.StartEventTone uint32:$TONE int32:0 uint32:0
+sleep $DURATION
+dbus-send --session --type=method_call --dest=com.Nokia.Telephony.Tones /com/Nokia/Telephony/Tones com.Nokia.Telephony.Tones.StopTone

@@ -1,0 +1,11 @@
+[Unit]
+Description=Tone generator daemon for call progress indication and DTMF
+Requires=dbus.socket pulseaudio.service
+After=pre-user-session.target
+
+[Service]
+ExecStart=/usr/bin/tonegend -b 100 -r 20 --volume-dtmf 15 --tag-dtmf media.role=dtmf-tone --tag-indicator media.role=indicator-tone --tag-notif media.role=notification-tone
+Restart=always
+
+[Install]
+WantedBy=user-session.target

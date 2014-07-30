@@ -1,0 +1,27 @@
+#!/bin/bash
+if [ -z "$1" ]
+  then
+    echo "Usage: $0 <signal> [duration]"
+    echo "Valid signals:"
+    echo "    66: Dial"
+    echo "    70: Ring"
+    echo "    72: Busy"
+    echo "    73: Congestion"
+    echo "    74: Error"
+    echo "    79: Wait"
+    echo "    256: Radio Ack"
+    echo "    257: Radio N/A"
+    echo "Default duration: 3 seconds"
+    exit 1
+fi
+
+TONE=$1
+DURATION=3
+if [ "$2" ]
+  then
+    DURATION=$2
+fi
+
+echo "Playing signal tone $TONE for $DURATION seconds."
+let DURATION=(1000*$DURATION)
+dbus-send --session --type=method_call --dest=com.Nokia.Telephony.Tones /com/Nokia/Telephony/Tones com.Nokia.Telephony.Tones.StartNotificationTone uint32:$TONE int32:20 uint32:$DURATION

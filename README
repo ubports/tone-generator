@@ -1,0 +1,44 @@
+OVERVIEW
+--------
+tone-generator (tonegend) generates telephony-related tones, and plays them via PulseAudio. In particular, it creates tones as defined in IETF RFC 4733 "RTP Payload for DTMF Digits, Telephony Tones, and Telephony Signals".
+
+tone-generator provides a D-Bus API to clients on the system bus.
+
+tone-generator is licensed under the GNU Lesser General Public License (LGPL) version 2.1.
+
+BUILDING
+-------
+This package should be properly 'debianized' soon. (Note that there is an old Debian packaging, for the Maemo operating system, at https://gitorious.org/maemo-multimedia/tone-generator/commit/cb6cf3bfdd70e409a18b4fd9f3684371105d360f ).
+
+Until then:
+# install dependencies
+apt-get install automake libtool pkg-config libdbus-glib-1-dev libglib2.0-dev libpulse-dev
+# compile
+./autogen.sh
+./configure --sysconfdir=/etc
+make
+make install
+
+RUNNING
+-------
+tone-generator runs as a daemon in a user session. An Upstart init script is provided (debian/tone-generator.conf).
+
+The --volume-dtmf parameter defines the default volume of generated DTMF sounds, as a percentage of the maximum volume.
+
+Changing the -b (buffer length in milliseconds) and -r (minimum request time in milliseconds) parameters is a tradeoff between responsiveness and memory consumption.
+
+EXAMPLE USAGE
+-------------
+# Play a DTMF tone corresponding to key '5'
+dbus-send --system --print-reply --type=method_call --dest=com.Nokia.Telephony.Tones /com/Nokia/Telephony/Tones com.Nokia.Telephony.Tones.StartEventTone uint32:5 int32:0 uint32:0
+sleep 3
+dbus-send --system --print-reply --type=method_call --dest=com.Nokia.Telephony.Tones /com/Nokia/Telephony/Tones com.Nokia.Telephony.Tones.StopTone
+
+# Play a signalling tone corresponding to 'network congestion' for three seconds
+dbus-send  --system --print-reply --type=method_call --dest=com.Nokia.Telephony.Tones /com/Nokia/Telephony/Tones com.Nokia.Telephony.Tones.StartEventTone uint32:73 int32:20 uint32:3000
+
+HISTORY
+-------
+tone-generator was written by Nokia, and it is used in devices based on the Maemo and MeeGo operating systems, see https://gitorious.org/maemo-multimedia/tone-generator .
+Maintenance of tone-generator was picked up by the Nemo Mobile project, and it is used in devices based on the Sailfish operating system, see https://github.com/nemomobile/tone-generator .
+
