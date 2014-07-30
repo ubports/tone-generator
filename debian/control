@@ -1,0 +1,51 @@
+Source: tone-generator
+Section: sound
+Priority: optional
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Build-Depends:
+ debhelper (>= 9),
+ autotools-dev,
+ dh-autoreconf,
+ libtool,
+ libglib2.0-dev,
+ libpulse-dev,
+ libdbus-1-dev,
+ libdbus-glib-1-dev
+Standards-Version: 3.9.5
+# If you aren't a member of ~phablet-team but need to upload
+# packaging changes, just go ahead. ~phablet-team will notice
+# and sync up the code again.
+Vcs-Bzr: https://code.launchpad.net/~phablet-team/tone-generator/ubuntu
+Vcs-Browser: http://bazaar.launchpad.net/~phablet-team/tone-generator/ubuntu
+
+Package: tone-generator
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, dbus, pulseaudio
+Recommends: telephony-service
+Description: Telephony Tone Generator (daemon)
+ tone generator is simple daemon which provides
+ generation of playback tones for DTMF (dialer
+ keypad tones), call progress indication, and
+ other miscellaneous telephony-related tones.
+ .
+ This package includes the core daemon.
+
+Package: tone-generator-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${misc:Depends}, tone-generator (= ${binary:Version})
+Description: Telephony Tone Generator (debugging files)
+ tone generator is simple daemon which provides
+ generation of playback tones for DTMF (dialer
+ keypad tones), call progress indication, and
+ other miscellaneous telephony-related tones.
+
+Package: tone-generator-scripts
+Architecture: all
+Depends: ${misc:Depends}, tone-generator (>= ${source:Version})
+Description: Telephony Tone Generator (test scripts)
+ tone generator is simple daemon which provides
+ generation of playback tones for DTMF (dialer
+ keypad tones), call progress indication, and
+ other miscellaneous telephony-related tones.
