@@ -1,4 +1,2 @@
-debian/tmp/usr/bin/tonegend
+usr/bin/tonegend
 debian/tone-generator.conf /usr/share/upstart/sessions
-
-
