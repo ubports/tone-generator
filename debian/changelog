@@ -1,3 +1,11 @@
+tone-generator (1.5.4+14.10.20140814-0ubuntu1) utopic; urgency=low
+
+  [ Ricardo Salveti de Araujo ]
+  * Lowering default dtmf volume (LP: #1356428). Fixing vcs entries in
+    debian/control . (LP: #1356428)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 14 Aug 2014 20:32:55 +0000
+
 tone-generator (1.5.4+14.10.20140731-0ubuntu1) utopic; urgency=low
 
   [ Martti Piirainen ]
